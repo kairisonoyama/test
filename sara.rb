@@ -2,9 +2,9 @@
 class Player
   def initialize(window)
     @window = window
-    @x = @window.width / 2  #初期値のx座標を中央に設定
+    @x = @window.width / 2   #初期値のx座標を中央に設定
     @y = @window.height - 50 #初期値のy座標を画面下に設定
-    @radius = 20           #サイズ
+    @radius = 20            #サイズ
     @color = Gosu::Color::BLUE #色
     @speed = 5          #動くスピード
   end
