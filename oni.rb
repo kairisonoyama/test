@@ -15,7 +15,7 @@ class ScoreImageWindow < Gosu::Window
   def draw
     # スコアに応じて画像を切り替えて表示
     image = case @score
-            when 0..4000
+            when 0..4000  #自由に決めるところ
               @low_image
             else
               @high_image
