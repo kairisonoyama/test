@@ -47,6 +47,7 @@ class AutoResizeWindow < Gosu::Window
     @scale_y = height / @img_height1
     @scale_x = width / @img_width2
     @scale_y = height / @img_height2
+  end
 
   def draw
     # スケールを使って画像を描画（左上に表示）
