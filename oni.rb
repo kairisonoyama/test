@@ -7,7 +7,7 @@ class ScoreImageWindow < Gosu::Window
     super 640, 480
     self.caption = "スコアに応じた画像表示"
 
-    @score = rand(4000..5000)   # 最終スコア
+    @score = rand(1000..3000)   # 最終スコア
 
     # 画像を読み込む
     @low_image  = Gosu::Image.new("失敗エンディング画像.png", retro: false)
