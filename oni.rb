@@ -20,7 +20,7 @@ class ScoreImageWindow < Gosu::Window
             else
               @high_image
             end
-    
+    @image.draw(160, 120, 0)  # 中央付近に表示
     
 
   end
@@ -43,10 +43,10 @@ class AutoResizeWindow < Gosu::Window
     @img_height2 = @High_image.height.to_f
 
     # ウィンドウサイズに合わせたスケールを計算
-    @scale_x = width / @img_width1
-    @scale_y = height / @img_height1
-    @scale_x = width / @img_width2
-    @scale_y = height / @img_height2
+    @scale_x1 = width / @img_width1
+    @scale_y1 = height / @img_height1
+    @scale_x2 = width / @img_width2
+    @scale_y2 = height / @img_height2
   end
 
   def draw
