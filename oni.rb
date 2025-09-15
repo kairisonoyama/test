@@ -5,7 +5,7 @@ class ScoreImageWindow < Gosu::Window
     super 640, 480
     self.caption = "スコアに応じた画像表示"
 
-    @score =    #ここに最終スコアを入れる
+    @score = rand(3000..5000)   #ここに最終スコアを入れる
 
     # 画像を読み込む（同じフォルダに画像を置いておく）
     @low_image    = Gosu::Image.new("失敗エンディング画像.png")
@@ -14,7 +14,7 @@ class ScoreImageWindow < Gosu::Window
 
   def draw
     # スコアに応じて画像を切り替えて表示
-    image = case @score
+    image = case @scoreSS
             when 0..4000  #自由に決めるところ
               @low_image
             else
