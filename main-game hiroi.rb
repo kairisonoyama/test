@@ -26,7 +26,7 @@ class GameWindow < Gosu::Window
     @sara.update
     @nikus.each(&:update)
 
-    # 新しいボールを生成
+    # 新しい肉を生成
     if Gosu.milliseconds - @last_niku_spawn > 500
       @nikus << Niku.new(self)
       @last_niku_spawn = Gosu.milliseconds
@@ -39,7 +39,7 @@ class GameWindow < Gosu::Window
     @nikus.each do |niku|
       distance = Gosu.distance(@sara.x, @sara.y, niku.x, niku.y)
       if distance < @sara.radius + niku.radius
-        if ball.good?
+        if niku.good?
           @score += niku.score
           @nikus.delete(niku)
         else
@@ -56,7 +56,7 @@ class GameWindow < Gosu::Window
 
   def draw
     @player.draw
-    @balls.each(&:draw)
+    @nikus.each(&:draw)
     @font.draw_text("スコア: #{@score}", 10, 10, 1)
 
     # 残り時間表示
