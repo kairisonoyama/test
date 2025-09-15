@@ -9,7 +9,7 @@ class GameWindow < Gosu::Window
 
     @state = :opening
     @font = Gosu::Font.new(32)
-    @title_image = Gosu::Image.new("オープニング　候補　画像.png", retro: false)
+    @title_image = Gosu::Image.new("オープニング　候補　画像.png ,retro: false")
     @bgm = Gosu::Song.new("オープニング曲.mp3")
     @bgm.play(true)
 
