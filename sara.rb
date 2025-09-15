@@ -1,12 +1,14 @@
 # プレイヤー（キャラクター）クラス
-class Player
+class sara
   def initialize(window)
     @window = window
     @x = @window.width / 2   #初期値のx座標を中央に設定
     @y = @window.height - 50 #初期値のy座標を画面下に設定
-    @radius = 20            #サイズ
-    @color = Gosu::Color::BLUE #色
     @speed = 5         #動くスピード
+
+     # お皿の画像を読み込み
+    @image = Gosu::Image.new("images/plate.png")  
+
   end
 
   def update
@@ -20,8 +22,12 @@ class Player
     @x = [[@x, @radius].max, @window.width - @radius].min  #[].maxで左側を制限、[].minで右側を制限
   end
 
-  def draw  #@window.draw_rect(四角形の左上のx座標, 四角形の左上のy座標, 幅, 高さ, 色)
-    @window.draw_rect(@x - @radius, @y - @radius, @radius * 2, @radius * 2, @color)
+  def draw  #@window.draw_rect(皿の左上のx座標, 四角形の左上のy座標, 幅, 高さ, 色)
+    #@image.draw(@x - @image.width / 2, @y - @image.height / 2, 1)
+    @image.draw(@x - @image.width / 2 * 1, 
+            @y - @image.height / 2 * 1, 
+            1, 
+            1,1)
   end
 
   def x
@@ -33,6 +39,6 @@ class Player
   end
 
   def radius
-    @radius
+    [@image.width * @scale, @image.height * @scale].min / 2
   end
 end
