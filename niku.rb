@@ -1,4 +1,4 @@
-# ボールクラス
+# nikuクラス
 class Ball
   def initialize(window)
     @window = window
