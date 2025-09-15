@@ -18,7 +18,7 @@ class ScoreImageWindow < Gosu::Window
     image = case @score
             when #ここにスコアの範囲を入力
               @low_image
-            when 31..70
+            when #ここにスコア
               @medium_image
             else
               @high_image
