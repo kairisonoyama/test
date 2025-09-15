@@ -17,7 +17,7 @@ class Player
       @x += @speed
     end
     # 画面外に出ないようにする
-    @x = [[@x, @radius].max, @window.width - @radius].min #[].maxで左側を制限、[].minで右側を制限
+    @x = [[@x, @radius].max, @window.width - @radius].min  #[].maxで左側を制限、[].minで右側を制限
   end
 
   def draw  #@window.draw_rect(四角形の左上のx座標, 四角形の左上のy座標, 幅, 高さ, 色)
