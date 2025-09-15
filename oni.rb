@@ -21,7 +21,7 @@ class ScoreImageWindow < Gosu::Window
               @high_image
             end
     image.draw(160, 120, 0)  # 中央付近に表示
-    Gosu::Font.new(32).draw_text("スコア: #{@score}", 20, 20, 1, 1.0, 1.0, Gosu::Color::BLACK)
+    G
 
   end
 end
@@ -37,15 +37,16 @@ class AutoResizeWindow < Gosu::Window
     @High_image = Gosu::Image.new("成功エンディング画像.png", retro: false)
 
     # 元の画像サイズを取得
-    @img_width = @low_image.width.to_f
-    @img_height = @low_image.height.to_f
-    @img_width = @High_image.width.to_f
-    @img_height = @High_image.height.to_f
+    @img_width1 = @low_image.width.to_f
+    @img_height1 = @low_image.height.to_f
+    @img_width2 = @High_image.width.to_f
+    @img_height2 = @High_image.height.to_f
 
     # ウィンドウサイズに合わせたスケールを計算
-    @scale_x = width / @img_width
-    @scale_y = height / @img_height
-  end
+    @scale_x = width / @img_width1
+    @scale_y = height / @img_height1
+    @scale_x = width / @img_width2
+    @scale_y = height / @img_height2
 
   def draw
     # スケールを使って画像を描画（左上に表示）
