@@ -20,14 +20,14 @@ class Niku
     @window = window
     @x = rand(@window.width)
     @y = 0
-    @speed = 3
+    @speed = 5
 
   # 重みに応じて選ばれる肉
     niku_data = self.class.weighted_random
     @image = Gosu::Image.new(niku_data[:path], retro: false)
 
     # 当たり判定用の大きさ（半径っぽく扱う）
-    @radius = [@image.width, @image.height].min / 2
+    @radius = [@image.width, @image.height].min / 2 *0.8
 
     # 肉ごとのスコア
     @score = niku_data[:score]
@@ -54,7 +54,8 @@ class Niku
 
  def draw
     # 中心を @x, @y に合わせて描画
-    @image.draw(@x - @radius, @y - @radius, 1)
+    scale = 0.7  # ← 倍率をここで調整
+    @image.draw(@x - @radius, @y - @radius, 1, scale, scale)
   end
 
    # --- 追加 ---
