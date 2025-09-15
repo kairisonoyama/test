@@ -61,8 +61,15 @@ class ScoreImageWindow < Gosu::Window
     @low_image  = Gosu::Image.new("食中毒.png", retro: false)
     @high_image = Gosu::Image.new("成功エンディング画像.png", retro: false)
 
+    #BGMを取り込む
+    @low_bgm = Gosu::Song.new("失敗BGM.mp3")
+    @high_bgm = Gosu::Song.new("成功BGM.mp3")
+
     # スコアに応じて画像を選択
     @image = @score <= 4000 ? @low_image : @high_image
+    @bgm =@score <= 4000 ? @low_bgm : @high_bgm
+
+    @bgm.play(false)
 
     # 選択された画像サイズに合わせてスケール計算
     @scale_x = width / @image.width.to_f
@@ -76,6 +83,7 @@ class ScoreImageWindow < Gosu::Window
                 "成功しました。お腹いっぱいです。"
                end
   end
+
 
   def draw
     @image.draw(0, 0, 0, @scale_x, @scale_y)
