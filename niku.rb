@@ -1,5 +1,5 @@
 # nikuクラス
-class niku
+class Niku
 
   NIKU = [
     "images/karubi.png",
