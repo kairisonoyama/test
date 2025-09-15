@@ -9,7 +9,7 @@ class ScoreImageWindow < Gosu::Window
 
     # 画像を読み込む（同じフォルダに画像を置いておく）
     @low_image    = Gosu::Image.new("失敗エンディング画像.png")
-    @high_image   = Gosu::Image.new("happy.png")
+    @high_image   = Gosu::Image.new("成功エンディング画像.png")
   end
 
   def draw
