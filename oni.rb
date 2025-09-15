@@ -21,7 +21,7 @@ class ScoreImageWindow < Gosu::Window
               @high_image
             end
 
-    image.draw(160, 120, 0)  # 中央付近に表示
+    image.draw(100, 100, 0)  # 中央付近に表示
     Gosu::Font.new(32).draw_text("スコア: #{@score}", 20, 20, 1, 1.0, 1.0, Gosu::Color::BLACK)
   end
 end
