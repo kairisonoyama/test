@@ -5,6 +5,7 @@ class Sara
     @x = @window.width / 2   #初期値のx座標を中央に設定
     @y = @window.height - 50 #初期値のy座標を画面下に設定
     @speed = 5         #動くスピード
+    @radius=20
 
      # お皿の画像を読み込み
     @image = Gosu::Image.new("images/plate.png")  
@@ -39,6 +40,6 @@ class Sara
   end
 
   def radius
-    [@image.width * @scale, @image.height * @scale].min / 2
+    [@image.width * 1, @image.height * 1].min / 2
   end
 end

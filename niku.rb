@@ -73,15 +73,4 @@ class Niku
   attr_reader :x, :y, :radius
 end
 
-  #def x
-   # @x
-  #end
 
-#  def y
-   # @y
-  #end
-
-  #def radius
-   # @radius
-  #end
-#end
