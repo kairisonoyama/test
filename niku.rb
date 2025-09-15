@@ -12,7 +12,7 @@ class Niku
     { path: "images/rosu nama.png",       weight: 4, score: 0, good: false },
     { path: "images/harami nama.png",       weight: 4, score: 0, good: false },
     { path: "images/tan nama.png",       weight: 4, score: 0, good: false },
-    { path: "images/horumon nama.png",       weight: 4, score: 0, good: false }
+    { path: "images/horumon nama 2.png",       weight: 4, score: 0, good: false }
     #{ path: "images/rosu.png",       weight: 30, score: 10, bad: false },
 ]
 
