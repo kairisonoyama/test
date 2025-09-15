@@ -9,17 +9,14 @@ class ScoreImageWindow < Gosu::Window
 
     # 画像を読み込む（同じフォルダに画像を置いておく）
     @low_image    = Gosu::Image.new("失敗エンディング画像.png")
-    @medium_image = Gosu::Image.new("neutral.png")
     @high_image   = Gosu::Image.new("happy.png")
   end
 
   def draw
     # スコアに応じて画像を切り替えて表示
     image = case @score
-            when #ここにスコアの範囲を入力
+            when 0..4000
               @low_image
-            when #ここにスコア
-              @medium_image
             else
               @high_image
             end
