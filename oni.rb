@@ -20,7 +20,7 @@ class ScoreImageWindow < Gosu::Window
             else
               @high_image
             end
-    image.draw(160, 120, 0)  # 中央付近に表示
+    
     
 
   end
