@@ -1,5 +1,5 @@
 # プレイヤー（キャラクター）クラス
-class sara
+class Sara
   def initialize(window)
     @window = window
     @x = @window.width / 2   #初期値のx座標を中央に設定
