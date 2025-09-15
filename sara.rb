@@ -6,7 +6,7 @@ class Player
     @y = @window.height - 50 #初期値のy座標を画面下に設定
     @radius = 20            #サイズ
     @color = Gosu::Color::BLUE #色
-    @speed = 5          #動くスピード
+    @speed = 5         #動くスピード
   end
 
   def update
