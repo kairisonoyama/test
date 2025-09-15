@@ -37,3 +37,5 @@ class ScoreImageWindow < Gosu::Window
 end
 
 ScoreImageWindow.new.show
+
+class
