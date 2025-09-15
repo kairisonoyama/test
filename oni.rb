@@ -27,3 +27,31 @@ class ScoreImageWindow < Gosu::Window
 end
 
 ScoreImageWindow.new.show
+
+class AutoResizeWindow < Gosu::Window
+  def initialize
+    super 640, 480
+    self.caption = "画像の自動調整表示"
+
+    @low_image = Gosu::Image.new("失敗エンディング画像.png", retro: false)
+    @High_image = Gosu::Image.new("成功エンディング画像.png", retro: false)
+
+    # 元の画像サイズを取得
+    @img_width = @low_image.width.to_f
+    @img_height = @low_image.height.to_f
+    @img_width = @High_image.width.to_f
+    @img_height = @High_image.height.to_f
+
+    # ウィンドウサイズに合わせたスケールを計算
+    @scale_x = width / @img_width
+    @scale_y = height / @img_height
+  end
+
+  def draw
+    # スケールを使って画像を描画（左上に表示）
+    @image.draw(0, 0, 0, @scale_x, @scale_y)
+  end
+end
+
+AutoResizeWindow.new.show
+
