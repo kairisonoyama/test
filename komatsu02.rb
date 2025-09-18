@@ -4,19 +4,35 @@ require 'gosu'
 
 class GameWindow < Gosu::Window
     def initialize
-        super(1000,600,false)
-        self.caption = "Gosu Tutorial Game"
+        #画面の設定
+        super(640,480,false)
+        self.caption = "Gosu Test Game"
 
-        @background_image = Gosu::Image.new("media/yakinikuya.png",options = {window: self})
+        #画像を読み込む
+        @haikei  = Gosu::Image.new("media/yakinikuya2.png", retro: false)
+        
+        #読み込んだ画像のスケールを計算
+        @scale_x = width / @haikei.width.to_f
+        @scale_y = height / @haikei.height.to_f
+        
+        #BGMの読み込み
         @bgm = Gosu::Song.new("media/VSQSE_1044_grilling_meat_01.mp3")
+        
+        #BGMの再生
         @bgm.play
         true
     end
+
+    #ゲームの主要ロジック
     def update
     end
+
+    #画像をうつす
     def draw
-        @background_image.draw(0,-200,0)
+        @haikei.draw(0,0,0,@scale_x,@scale_y)
     end
+
+    #エスケープキーで終了
     def button_down(id)
         if id == Gosu::KbEscape
             close
