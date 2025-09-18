@@ -3,6 +3,9 @@ require 'gosu'
 require_relative 'game'
 
 class EndingWindow < Gosu::Window
+
+  attr_reader :restart   # ← 外から参照できるようにする
+
   def initialize(score, scores, result)
     super 640, 480
     self.caption = "スコアに応じた画像表示"
@@ -33,25 +36,12 @@ class EndingWindow < Gosu::Window
       @message = "成功しました。お腹いっぱいです。"
     end
 
-    # # スコアに応じて画像を選択
-    # @image = @score <= 4000 ? @low_image : @high_image
-    # @bgm =@score <= 4000 ? @low_bgm : @high_bgm
-
     @bgm.play(false)
 
     # 選択された画像サイズに合わせてスケール計算
     @scale_x = width / @image.width.to_f
     @scale_y = height / @image.height.to_f
 
-    # #最後のメッセージの分岐
-    # @message = case @score
-    #            when 0..4000
-    #             "残念ながら食中毒になりました。乙"
-    #            else
-    #             "成功しました。お腹いっぱいです。"
-    #            end
-
-    
   end
 
   def draw
@@ -91,8 +81,8 @@ class EndingWindow < Gosu::Window
     end
 
     if id == Gosu::KB_R
-      close
-      GameWindow.new.show  # ← Rキーでオープニングに戻る
+      @restart = true   # ← フラグを立てるだけ
+      close             # ← ウィンドウは閉じる
     end
   end
 

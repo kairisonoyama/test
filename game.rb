@@ -6,11 +6,15 @@ require_relative 'sara'
 # ゲームのメインウィンドウ 
 class GameWindow < Gosu::Window
   def initialize
-    super(640, 480)
+    super(640,480,false)
     self.caption = "焼き肉キャッチゲーム"
 
     # 背景画像をロード
-    @background_image = Gosu::Image.new("media/yakinikuya.png", retro: false)
+    @background_image = Gosu::Image.new("media/yakinikuya2.png", retro: false)
+
+    #読み込んだ画像のスケールを計算
+    @scale_x = width / @background_image.width.to_f
+    @scale_y = height / @background_image.height.to_f
 
     #BGMをロード
     @bgm = Gosu::Song.new("media/VSQSE_1044_grilling_meat_01.mp3")
@@ -75,10 +79,10 @@ class GameWindow < Gosu::Window
 
   def draw
     #背景を描画
-    @background_image.draw(0,-200,0)
+    @background_image.draw(0,0,0,@scale_x,@scale_y)
 
     #Gosu.draw_rect(0, 0, width, height, Gosu::Color::BLACK, 0)
-    @font.draw_text("いただきます！", 200, 200, 1, 1.0, 1.0, Gosu::Color::WHITE)
+    #@font.draw_text("いただきます！", 200, 200, 1, 1.0, 1.0, Gosu::Color::WHITE)
     @sara.draw
     @nikus.each(&:draw)
     @font.draw_text("スコア: #{@score}", 10, 10, 1)
@@ -92,14 +96,16 @@ class GameWindow < Gosu::Window
 
   # ゲーム終了処理
   def end_game
-    if @game_over 
-        save_score(@score) # ゲームオーバー時にスコアを保存
-        close # このウィンドウを閉じて
-        EndingWindow.new(@score, @scores, :failure).show # スコアを渡してエンディング開始
+    save_score(@score)
+    ending = EndingWindow.new(@score, @scores, @game_over ? :failure : :success)
+    ending.show
+
+    # リスタート希望なら新しいGameWindowを開く
+    if ending.restart
+        GameWindow.new.show
     else
-        save_score(@score) # ゲームオーバー時にスコアを保存
-        close # このウィンドウを閉じて
-        EndingWindow.new(@score, @scores, :success).show # スコアを渡してエンディング開始
+        
+        exit   # ← プログラムを完全に終了
     end
   end
 
