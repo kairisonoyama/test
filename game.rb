@@ -8,6 +8,15 @@ class GameWindow < Gosu::Window
   def initialize
     super(640, 480)
     self.caption = "焼き肉キャッチゲーム"
+
+    # 背景画像をロード
+    @background_image = Gosu::Image.new("media/yakinikuya.png", retro: false)
+
+    #BGMをロード
+    @bgm = Gosu::Song.new("media/VSQSE_1044_grilling_meat_01.mp3")
+    @bgm.volume = 1   # 音量調整（70%）
+    @bgm.play(true)
+
     @sara = Sara.new(self)
     @nikus = []
     @last_niku_spawn = Gosu.milliseconds
@@ -44,20 +53,24 @@ class GameWindow < Gosu::Window
           @score += niku.score
           @nikus.delete(niku)
         else
-          @game_over = true  # 生肉 → ゲームオーバー
-          save_score(@score) # ゲームオーバー時にスコアを保存
+            @game_over = true
+            end_game
         end
       end
     end
 
     # 制限時間チェック
     if Gosu.milliseconds - @start_time > @time_limit
-      @game_over = true
-      save_score(@score) # ゲームオーバー時にスコアを保存
+      end_game
     end
   end
 
   def draw
+    #背景を描画
+    @background_image.draw(0,-200,0)
+
+    #Gosu.draw_rect(0, 0, width, height, Gosu::Color::BLACK, 0)
+    @font.draw_text("いただきます！", 200, 200, 1, 1.0, 1.0, Gosu::Color::WHITE)
     @sara.draw
     @nikus.each(&:draw)
     @font.draw_text("スコア: #{@score}", 10, 10, 1)
@@ -65,25 +78,24 @@ class GameWindow < Gosu::Window
     #残り時間表示
     remaining = [(@time_limit - (Gosu.milliseconds - @start_time)) / 1000, 0].max
     @font.draw_text("残り時間: #{remaining}", 10, 40, 1)
-
-    if @game_over
-      game_over_text = "ゲーム終了！ スコア: #{@score}"
-      text_width = @font.text_width(game_over_text)
-      @font.draw_text(game_over_text, (self.width - text_width) / 2, self.height / 2, 1)
-      @font.draw_text("Rキーでリスタート", (self.width - @font.text_width("Rキーでリスタート")) / 2, self.height / 2 + 30, 1)
-      draw_ranking
-    end
-  end
-
-  def button_down(id)
-    if @game_over && id == Gosu::KB_R
-      initialize
-    end
   end
 
     private
 
-  # スコアをファイルから読み込む
+  # ゲーム終了処理
+  def end_game
+    if @game_over 
+        save_score(@score) # ゲームオーバー時にスコアを保存
+        close # このウィンドウを閉じて
+        EndingWindow.new(@score, @scores, :failure).show # スコアを渡してエンディング開始
+    else
+        save_score(@score) # ゲームオーバー時にスコアを保存
+        close # このウィンドウを閉じて
+        EndingWindow.new(@score, @scores, :success).show # スコアを渡してエンディング開始
+    end
+  end
+
+#   # スコアをファイルから読み込む
   def load_scores
     scores = []
     if File.exist?('scores.txt')
@@ -109,19 +121,7 @@ class GameWindow < Gosu::Window
       end
     end
   end
-
-  # ランキングを描画する
-  def draw_ranking
-    ranking_text = "--- スコアランキング ---"
-    text_width = @font.text_width(ranking_text)
-    @font.draw_text(ranking_text, (self.width - text_width) / 2, self.height / 2 + 70, 1)
-    @scores.each_with_index do |score, index|
-      rank_text = "#{index + 1}. #{score}"
-      text_width = @font.text_width(rank_text)
-      @font.draw_text(rank_text, (self.width - text_width) / 2, self.height / 2 + 90 + index * 20, 1)
-    end
-  end
 end
 
 # ゲーム開始
-GameWindow.new.show
+#GameWindow.new.show
