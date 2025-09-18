@@ -8,7 +8,7 @@ class EndingWindow < Gosu::Window
 
   def initialize(score, scores, result)
     super 640, 480
-    self.caption = "スコアに応じた画像表示"
+    self.caption = "結果発表～"
 
     @score = score   # ← 引数で受け取る！
     @scores = scores # スコアを読み込む
