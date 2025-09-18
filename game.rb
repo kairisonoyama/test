@@ -17,6 +17,8 @@ class GameWindow < Gosu::Window
     @bgm.volume = 1   # 音量調整（70%）
     @bgm.play(true)
 
+    @special_se = Gosu::Sample.new("きらりん２２.mp3")   # シャトーブリアン専用
+
     @sara = Sara.new(self)
     @nikus = []
     @last_niku_spawn = Gosu.milliseconds
@@ -51,6 +53,12 @@ class GameWindow < Gosu::Window
       if distance < @sara.radius + niku.radius
         if niku.good_niku?
           @score += niku.score
+
+          # ★ シャトーブリアン判定して効果音再生 ★
+          if niku.score == 250
+            @special_se.play
+          end
+
           @nikus.delete(niku)
         else
             @game_over = true
