@@ -31,8 +31,8 @@ class GameWindow < Gosu::Window
     @game_over = false
     @scores = load_scores # スコアを読み込む
 
-    # 制限時間 (60秒)
-    @time_limit = 60_000
+    # 制限時間 (45秒)
+    @time_limit = 45_000
     @start_time = Gosu.milliseconds
   end
 
@@ -59,7 +59,7 @@ class GameWindow < Gosu::Window
           @score += niku.score
 
           # ★ シャトーブリアン判定して効果音再生 ★
-          if niku.score == 250
+          if niku.score == 634
             @special_se.play
           end
 
@@ -104,7 +104,6 @@ class GameWindow < Gosu::Window
     if ending.restart
         GameWindow.new.show
     else
-        
         exit   # ← プログラムを完全に終了
     end
   end
