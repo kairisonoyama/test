@@ -11,6 +11,7 @@ class OpeningWindow < Gosu::Window
     @font = Gosu::Font.new(32)
     @title_image = Gosu::Image.new("オープニング　候補　画像.png", retro: false)
     @bgm = Gosu::Song.new("オープニング曲.mp3")
+    @bgm.volume = 0.5   # 音量調整（50%）
     @bgm.play(true)
 
     @start_time = Gosu.milliseconds
