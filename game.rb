@@ -14,7 +14,7 @@ class GameWindow < Gosu::Window
 
     #BGMをロード
     @bgm = Gosu::Song.new("media/VSQSE_1044_grilling_meat_01.mp3")
-    @bgm.volume = 1   # 音量調整（70%）
+    @bgm.volume = 1   # 音量調整（100%）
     @bgm.play(true)
 
     @sara = Sara.new(self)
