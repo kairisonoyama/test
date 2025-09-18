@@ -31,8 +31,8 @@ class GameWindow < Gosu::Window
     @game_over = false
     @scores = load_scores # スコアを読み込む
 
-    # 制限時間 (30秒)
-    @time_limit = 30_000
+    # 制限時間 (60秒)
+    @time_limit = 60_000
     @start_time = Gosu.milliseconds
   end
 
