@@ -67,7 +67,7 @@ class EndingWindow < Gosu::Window
     @font.draw_text("Rキーでリスタート", (self.width - @font.text_width("Rキーでリスタート")) / 2, self.height / 2 + 30, 1)
   end
 
-   private
+   
 
   # ランキングを描画する
   def draw_ranking

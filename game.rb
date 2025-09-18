@@ -88,7 +88,7 @@ class GameWindow < Gosu::Window
     @font.draw_text("残り時間: #{remaining}", 10, 40, 1)
   end
 
-    private
+    #private
 
   # ゲーム終了処理
   def end_game
