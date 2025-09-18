@@ -67,7 +67,7 @@ class EndingWindow < Gosu::Window
     @font.draw_text("Rキーでリスタート", (self.width - @font.text_width("Rキーでリスタート")) / 2, self.height / 2 + 30, 1)
   end
 
-   private
+   
 
   # ランキングを描画する
   def draw_ranking
@@ -81,7 +81,15 @@ class EndingWindow < Gosu::Window
     end
   end
 
+
   def button_down(id)
+    if id == Gosu::KB_D # 'D'キーが押されたらファイルの中身を空にする
+      File.open('scores.txt', 'w') do |file|
+        file.truncate(0)
+      end
+      puts "スコアランキングをリセットしました。"
+    end
+
     if id == Gosu::KB_R
       close
       GameWindow.new.show  # ← Rキーでオープニングに戻る
