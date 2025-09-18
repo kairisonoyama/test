@@ -4,7 +4,7 @@ class Sara
     @window = window
     @x = @window.width / 2   #初期値のx座標を中央に設定
     @y = @window.height - 50 #初期値のy座標を画面下に設定
-    @speed = 5         #動くスピード
+    @speed = 8         #動くスピード
     @radius=10
 
      # お皿の画像を読み込み
@@ -24,7 +24,6 @@ class Sara
   end
 
   def draw  #@window.draw_rect(皿の左上のx座標, 四角形の左上のy座標, 幅, 高さ, 色)
-    #@image.draw(@x - @image.width / 2, @y - @image.height / 2, 1)
     scale=0.8
     @image.draw(@x - @image.width / 2 * 1, 
             @y - @image.height / 2 * 1, 
