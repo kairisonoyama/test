@@ -1,0 +1,164 @@
+# game.rb
+require 'gosu'
+require_relative 'niku'
+require_relative 'sara'
+
+# ゲームのメインウィンドウ 
+class GameWindow < Gosu::Window
+  def initialize
+    super(640, 480)
+    self.caption = "焼き肉キャッチゲーム"
+    @sara = Sara.new(self)
+    @nikus = []
+    @last_niku_spawn = Gosu.milliseconds
+    @font = Gosu::Font.new(20)
+    @score = 0
+    @game_over = false
+    @scores = load_scores # スコアを読み込む
+
+    # 制限時間 (30秒)
+    @time_limit = 30_000
+    @start_time = Gosu.milliseconds
+
+     super 640, 480
+    self.caption = "ゲームオープニング"
+
+    @state = :opening
+    @font = Gosu::Font.new(32)
+    @title_image = Gosu::Image.new("オープニング　候補　画像.png", retro: false)
+    @bgm = Gosu::Song.new("オープニング曲.mp3")
+    @bgm.play(true)
+
+    @start_time = Gosu.milliseconds
+     # 選択された画像サイズに合わせてスケール計算
+    @scale_x = width / @title_image.width.to_f
+    @scale_y = height / @title_image.height.to_f
+
+  end
+
+  def update
+    return if @game_over
+
+    @sara.update
+    @nikus.each(&:update)
+
+    #新しい肉を生成
+    if Gosu.milliseconds - @last_niku_spawn > 500
+      @nikus << Niku.new(self)
+      @last_niku_spawn = Gosu.milliseconds
+    end
+
+    # 画面外に出たボールを削除
+    @nikus.reject! { |niku| niku.y > self.height + niku.radius }
+
+    # 当たり判定
+    @nikus.each do |niku|
+      distance = Gosu.distance(@sara.x, @sara.y, niku.x, niku.y)
+      if distance < @sara.radius + niku.radius
+        if niku.good_niku?
+          @score += niku.score
+          @nikus.delete(niku)
+        else
+          @game_over = true  # 生肉 → ゲームオーバー
+          save_score(@score) # ゲームオーバー時にスコアを保存
+        end
+      end
+    end
+
+    # 制限時間チェック
+    if Gosu.milliseconds - @start_time > @time_limit
+      @game_over = true
+      save_score(@score) # ゲームオーバー時にスコアを保存
+    end
+
+    if @state == :opening && Gosu.button_down?(Gosu::KB_SPACE)
+      @state = :playing
+      @bgm.stop
+    end
+  end
+
+  def draw
+    @sara.draw
+    @nikus.each(&:draw)
+    @font.draw_text("スコア: #{@score}", 10, 10, 1)
+
+    #残り時間表示
+    remaining = [(@time_limit - (Gosu.milliseconds - @start_time)) / 1000, 0].max
+    @font.draw_text("残り時間: #{remaining}", 10, 40, 1)
+
+    if @game_over
+      game_over_text = "ゲーム終了！ スコア: #{@score}"
+      text_width = @font.text_width(game_over_text)
+      @font.draw_text(game_over_text, (self.width - text_width) / 2, self.height / 2, 1)
+      @font.draw_text("Rキーでリスタート", (self.width - @font.text_width("Rキーでリスタート")) / 2, self.height / 2 + 30, 1)
+      draw_ranking
+    end
+
+    case @state
+    when :opening
+      draw_opening
+    when :playing
+      draw_game
+    end
+  end
+
+  def draw_opening
+    @title_image.draw(0, 0, 0, @scale_x, @scale_y)
+    @font.draw_text("スペースキーでスタート", 180, 400, 1, 1.0, 1.0, Gosu::Color::YELLOW)
+  end
+
+  def draw_game
+    Gosu.draw_rect(0, 0, width, height, Gosu::Color::BLACK, 0)
+    @font.draw_text("いただきます！", 200, 200, 1, 1.0, 1.0, Gosu::Color::WHITE)
+  end
+  
+  def button_down(id)
+    if @game_over && id == Gosu::KB_R
+      initialize
+    end
+  end
+
+    private
+
+  # スコアをファイルから読み込む
+  def load_scores
+    scores = []
+    if File.exist?('scores.txt')
+      File.open('scores.txt', 'r') do |file|
+        file.each_line do |line|
+          scores << line.chomp.to_i # 各行を整数に変換して追加
+        end
+      end
+    end
+    scores.sort { |a, b| b <=> a } # スコアを降順にソート
+    scores.take(5) # 上位5件のみ取得
+  end
+
+  # スコアをファイルに保存する
+  def save_score(score)
+    @scores << score # 現在のスコアを追加
+    @scores.sort! { |a, b| b <=> a } # スコアを降順にソート
+    @scores = @scores.take(5) # 上位5件のみ保持
+
+    File.open('scores.txt', 'w') do |file|
+      @scores.each do |s|
+        file.puts s # 各スコアを改行して書き込む
+      end
+    end
+  end
+
+  # ランキングを描画する
+  def draw_ranking
+    ranking_text = "--- スコアランキング ---"
+    text_width = @font.text_width(ranking_text)
+    @font.draw_text(ranking_text, (self.width - text_width) / 2, self.height / 2 + 70, 1)
+    @scores.each_with_index do |score, index|
+      rank_text = "#{index + 1}. #{score}"
+      text_width = @font.text_width(rank_text)
+      @font.draw_text(rank_text, (self.width - text_width) / 2, self.height / 2 + 90 + index * 20, 1)
+    end
+  end
+end
+
+# ゲーム開始
+GameWindow.new.show
