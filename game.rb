@@ -7,7 +7,7 @@ require_relative 'sara'
 class GameWindow < Gosu::Window
   def initialize
     super(640,480,false)
-    self.caption = "焼き肉キャッチゲーム"
+    self.caption = "Just Meat"
 
     # 背景画像をロード
     @background_image = Gosu::Image.new("media/yakinikuya2.png", retro: false)
