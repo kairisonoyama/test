@@ -32,11 +32,11 @@ class Sara
   end
 
   def x
-    @x
+    @x 
   end
 
   def y
-    @y +30
+    @y +15
   end
 
   def radius

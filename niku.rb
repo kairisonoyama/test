@@ -2,12 +2,12 @@
 class Niku
 
   NIKU = [
-    { path: "images/karubi.png",       weight: 30, score: 10, good: true },#カルビ
-    { path: "images/rosu.png",       weight: 25, score: 15, good: true },#ロース
-    { path: "images/harami.png",       weight: 20, score: 20, good: true },#ハラミ
-    { path: "images/tan.png",       weight: 15, score:25, good: true },#タン
-    { path: "images/horumon.png",       weight: 10, score: 30, good: true },#ホルモン
-    { path: "images/chateaubrian.png",       weight: 1, score: 250, good: true },#シャトーブリアン
+    { path: "images/karubi.png",       weight: 40, score: 11, good: true },#カルビ
+    { path: "images/rosu.png",       weight: 27, score: 37, good: true },#ロース
+    { path: "images/harami.png",       weight: 12, score: 83, good: true },#ハラミ
+    { path: "images/tan.png",       weight: 7, score:103, good: true },#タン
+    { path: "images/horumon.png",       weight: 18, score: 61, good: true },#ホルモン
+    { path: "images/chateaubrian.png",       weight: 1, score: 634, good: true },#シャトーブリアン
     { path: "images/karubi nama.png",       weight: 4, score: 0, good: false },#以下、生肉
     { path: "images/rosu nama.png",       weight: 4, score: 0, good: false },
     { path: "images/harami nama.png",       weight: 4, score: 0, good: false },
